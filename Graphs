@@ -1,0 +1,55 @@
+**************************************************************************************
+**** 733. Flood Fill ( 18/2/23 ) ****
+
+class Solution {
+  public: vector < vector < int >> floodFill(vector < vector < int >> & image, int sr, int sc, int color) {
+    int m = image.size();
+    int n = image[0].size();
+    queue < pair < int, int >> q;
+    map < int, vector < bool >> visited;
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        visited[i].push_back(false);
+      }
+    }
+    vector < pair < int, int >> store;
+    int impc = image[sr][sc];
+    q.push(make_pair(sr, sc));
+    visited[sr][sc] = true;
+    store.push_back(make_pair(sr, sc));
+    while (!q.empty()) {
+      pair < int, int > temp = q.front();
+      q.pop();
+      //// for left
+      if (temp.second - 1 >= 0 && image[temp.first][temp.second - 1] == impc && visited[temp.first][temp.second - 1] == false) {
+        q.push(make_pair(temp.first, temp.second - 1));
+        store.push_back(make_pair(temp.first, temp.second - 1));
+        visited[temp.first][temp.second - 1] = true;
+      }
+      //// for right 
+      if (temp.second + 1 < n && image[temp.first][temp.second + 1] == impc && visited[temp.first][temp.second + 1] == false) {
+        q.push(make_pair(temp.first, temp.second + 1));
+        store.push_back(make_pair(temp.first, temp.second + 1));
+        visited[temp.first][temp.second + 1] = true;
+      }
+      //// for up
+      if (temp.first - 1 >= 0 && image[temp.first - 1][temp.second] == impc && visited[temp.first - 1][temp.second] == false) {
+        q.push(make_pair(temp.first - 1, temp.second));
+        store.push_back(make_pair(temp.first - 1, temp.second));
+        visited[temp.first - 1][temp.second] = true;
+      }
+      //// for down 
+      if (temp.first + 1 < m && image[temp.first + 1][temp.second] == impc && visited[temp.first + 1][temp.second] == false) {
+        q.push(make_pair(temp.first + 1, temp.second));
+        store.push_back(make_pair(temp.first + 1, temp.second));
+        visited[temp.first + 1][temp.second] = true;
+      }
+    }
+    for (auto i: store) {
+      image[i.first][i.second] = color;
+    }
+    return image;
+  }
+};
+
+***********************************************************************************************************************************************
