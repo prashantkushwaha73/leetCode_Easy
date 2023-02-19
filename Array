@@ -1,0 +1,53 @@
+**************************************************************************************************
+**** 2570. Merge Two 2D Arrays by Summing Values ( 19/2/23 ) ****
+
+class Solution {
+public:
+    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1, vector<vector<int>>& nums2) {
+        vector<vector<int>> ans;
+        vector<int> store;
+        int a=0,b=0;
+        while(a<nums1.size() && b<nums2.size()){
+            if(nums1[a][0]==nums2[b][0]){
+                store.push_back(nums1[a][0]);
+                store.push_back(nums1[a][1]+nums2[b][1]);
+                ans.push_back(store);
+                store.clear();
+                a++;
+                b++;
+            }
+            else if(nums1[a][0]<nums2[b][0]){
+                store.push_back(nums1[a][0]);
+                store.push_back(nums1[a][1]);
+                ans.push_back(store);
+                store.clear();
+                a++;
+            }
+            else{
+                 store.push_back(nums2[b][0]);
+                store.push_back(nums2[b][1]);
+                ans.push_back(store);
+                store.clear();
+                b++;
+            } 
+        }
+       while(a<nums1.size()){
+           store.push_back(nums1[a][0]);
+                store.push_back(nums1[a][1]);
+                ans.push_back(store);
+                store.clear();
+           a++;
+       }
+        while(b<nums2.size()){
+             store.push_back(nums2[b][0]);
+                store.push_back(nums2[b][1]);
+                ans.push_back(store);
+                store.clear();
+            b++;
+        }
+    return ans;
+        
+    }
+};
+
+*****************************************************************************************************
